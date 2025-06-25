@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include "vec.hpp"
+#include "window.h"
 #include <iostream>
+#include <functional>
 
 #define SCREEN_WIDTH (800)
 #define SCREEN_HEIGHT (450)
@@ -13,17 +15,19 @@ int main(void)
     SetTargetFPS(60);
 
     Texture2D texture = LoadTexture(ASSETS_PATH"test.png"); // Check README.md for how this works
-    Vector2 a;
-    a.x = 0;
-    a.y = 1;
-    Vector2 b;
-    b.x = 3;
-    b.y = 4;
-    Vector2 c = a - b;
-    std::cout << a << std::endl;
-    std::cout << b << std::endl;
-    std::cout << c << std::endl;
-
+    
+    std::cout << Window::Height() << std::endl;
+    std::cout << Window::HeightWS() << std::endl;
+    std::cout << Window::Scale() << std::endl;
+    std::cout << Window::Width() << std::endl;
+    std::cout << Window::WidthWS() << std::endl;
+    std::cout << std::endl;
+    Window::SetScale(3);
+    std::cout << Window::Height() << std::endl;
+    std::cout << Window::HeightWS() << std::endl;
+    std::cout << Window::Scale() << std::endl;
+    std::cout << Window::Width() << std::endl;
+    std::cout << Window::WidthWS() << std::endl;
 
     while (!WindowShouldClose())
     {

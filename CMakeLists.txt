@@ -24,6 +24,7 @@ file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/s
 set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/src/") # Define PROJECT_INCLUDE to be the path to the include directory of the project
 #include_directories("${CMAKE_SOURCE_DIR}/src/entity")
 include_directories("${CMAKE_SOURCE_DIR}/src/vec")
+include_directories("${CMAKE_SOURCE_DIR}/src/window")
 #include_directories("${CMAKE_SOURCE_DIR}/src/transform")
 #include_directories("${CMAKE_SOURCE_DIR}/src/collider")
 

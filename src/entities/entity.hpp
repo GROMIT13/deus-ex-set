@@ -4,6 +4,8 @@
 #include <limits.h>
 #include <assert.h>
 
+// TO DO: remake the ID system so it can't run out
+
 class Entity
 {
 public:

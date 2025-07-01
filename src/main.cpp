@@ -1,48 +1,39 @@
 #include "raylib.h"
 #include "vec.hpp"
 #include "window.h"
+#include "entity.hpp"
+#include "log.hpp"
+#include "player.hpp"
+#include "colliders.hpp"
 #include <iostream>
-#include <functional>
-
-#define SCREEN_WIDTH (800)
-#define SCREEN_HEIGHT (450)
-
-#define WINDOW_TITLE "Window title"
+//#include <functional>
 
 int main(void)
 {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
+    Window::SetScale(1);
+    InitWindow(Window::WidthWS(), Window::HeightWS(), "Deus Ex Set");
     SetTargetFPS(60);
 
-    Texture2D texture = LoadTexture(ASSETS_PATH"test.png"); // Check README.md for how this works
-    
-    std::cout << Window::Height() << std::endl;
-    std::cout << Window::HeightWS() << std::endl;
-    std::cout << Window::Scale() << std::endl;
-    std::cout << Window::Width() << std::endl;
-    std::cout << Window::WidthWS() << std::endl;
-    std::cout << std::endl;
-    Window::SetScale(3);
-    std::cout << Window::Height() << std::endl;
-    std::cout << Window::HeightWS() << std::endl;
-    std::cout << Window::Scale() << std::endl;
-    std::cout << Window::Width() << std::endl;
-    std::cout << Window::WidthWS() << std::endl;
+    Vector2 pos = { 0,0 };
+    Player::Properties properties = { false,2,3,0,0,0,1.0f,0.5f };
+    Player player(pos, properties, properties);
+    CircleCollider c1({300,300-51}, 20);
+    CircleCollider c2({300,300}, 30);
 
     while (!WindowShouldClose())
     {
+        player.Update();
+        c1.pos = player.pos;
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
 
-        const int texture_x = SCREEN_WIDTH / 2 - texture.width / 2;
-        const int texture_y = SCREEN_HEIGHT / 2 - texture.height / 2;
         DrawFPS(0, 0);
-        DrawTexture(texture, texture_x, texture_y, WHITE);
-
-        const char* text = "OMG! IT WORKS!";
-        const Vector2 text_size = MeasureTextEx(GetFontDefault(), text, 20, 1);
-        DrawText(text, SCREEN_WIDTH / 2 - text_size.x / 2, texture_y + texture.height + text_size.y + 10, 20, BLACK);
+        DrawCircle(player.pos.x, player.pos.y, c1.radius, BLACK);
+        if(c1.Intersects(c2))
+            DrawCircle(300, 300, 30, RED);
+        else
+            DrawCircle(300, 300, 30, GREEN);
 
         EndDrawing();
     }

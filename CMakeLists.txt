@@ -28,7 +28,7 @@ include_directories("${CMAKE_SOURCE_DIR}/src/entities/player")
 include_directories("${CMAKE_SOURCE_DIR}/src/vec")
 include_directories("${CMAKE_SOURCE_DIR}/src/window")
 include_directories("${CMAKE_SOURCE_DIR}/src/components")
-#include_directories("${CMAKE_SOURCE_DIR}/src/collider")
+include_directories("${CMAKE_SOURCE_DIR}/src/space")
 
 # Declaring our executable
 add_executable(${PROJECT_NAME})

@@ -25,6 +25,8 @@ int main(void)
     Space screenSpace(screenBorder);
     //Window::SetScale(1);
     InitWindow(Window::WidthWS(), Window::HeightWS(), "Deus Ex Set");
+    InitAudioDevice();
+
     SetTargetFPS(60);
 
     Vector2 pos = { 0,0 };
@@ -34,12 +36,16 @@ int main(void)
     //CircleCollider c2({300,300}, 30);
     Vector2 playerDrawPos = {0,0};
 
+    Music music = LoadMusicStream(ASSETS_PATH"audio/menu-sum infinity.wav");
+    music.looping = true;
+    PlayMusicStream(music);
+
     while (!WindowShouldClose())
     {
+        UpdateMusicStream(music);
         player.Update();
         //c1.pos = player.pos;
         playerDrawPos = screenSpace.ToThisSpace(player.pos, gameSpace);
-        std::cout << playerDrawPos << std::endl;
 
         BeginDrawing();
 
@@ -56,6 +62,8 @@ int main(void)
         EndDrawing();
     }
 
+    UnloadMusicStream(music);
+    CloseAudioDevice();
     CloseWindow();
 
     return 0;

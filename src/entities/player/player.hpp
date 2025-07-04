@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 #include "entity.hpp"
-#include "window.h"
+#include "window.hpp"
 #include <cmath>
 
 class Player : public Entity
@@ -58,6 +58,6 @@ void Player::Update()
 	//if(pos.x < 0)
 
 	//Move
-	pos = pos + dir * (speed * (float)Window::Scale());
+	pos = pos + dir;
 
 }

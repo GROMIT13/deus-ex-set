@@ -1,12 +1,16 @@
+#define GLSL_VERSION 430
+//#define FPS 60
+
 #include "raylib.h"
 #include "vec.hpp"
 #include "window.hpp"
 #include "entity.hpp"
 #include "log.hpp"
 #include "player.hpp"
-#include "colliders.hpp"
 #include "space.hpp"
+#include "bulletManager.hpp"
 #include <iostream>
+#include <vector>
 
 int main(void)
 {
@@ -17,53 +21,78 @@ int main(void)
     gameBorder.top    =  80.0f;
     Space::Border screenBorder;
     screenBorder.left = 0;
-    screenBorder.right = 120.0f * 6; //Bottom is top since y axis in raylib is down
-    screenBorder.bottom = 0.0f;
-    screenBorder.top = 160.0f * 6;
+    screenBorder.right = 120.0f * Window::Scale(); 
+    screenBorder.bottom = 0.0f;                   //Bottom is top since y axis in raylib is down
+    screenBorder.top = 160.0f * Window::Scale();
 
     Space gameSpace(gameBorder);
     Space screenSpace(screenBorder);
-    //Window::SetScale(1);
+
     InitWindow(Window::WidthWS(), Window::HeightWS(), "Deus Ex Set");
     InitAudioDevice();
+    SetTargetFPS(FPS);
 
-    SetTargetFPS(60);
-
-    Vector2 pos = { 0,0 };
-    Player::Properties properties = { false,2,3,0,0,0,1.0f,0.5f };
+    Vector2 pos = { Window::WidthWS()*0.5f ,Window::HeightWS()*0.75f };
+    Player::Properties properties = { false,2,3,0,0,0,1.5f * 6,0.75f*6,1.0f };
     Player player(pos, properties, properties);
-    //CircleCollider c1({300,300-51}, 20);
-    //CircleCollider c2({300,300}, 30);
-    Vector2 playerDrawPos = {0,0};
+    Vector2 playerDrawPos = { 0,0 };
+    BulletManager bm(2000);
+    Bullet bullet;
+    bullet.canDamagePlayer = true;
+    bullet.velocity = { 0.0f,0.0f };
+    bullet.acceleration = { 0.0f,0.02f };
+    bullet.hitboxRadius = 5.0f;
+    bullet.isActive = true;
+    bullet.lifetime = 60 * 20;
+    bullet.pos = { Window::WidthWS()/2.0f, Window::HeightWS()/2.0f };
+    bullet.rotation = 0.0f;
+    bullet.UpdateFunction = [](Bullet* bullet) { bullet->PhysicsUpdateWithRotation(); };
 
-    Music music = LoadMusicStream(ASSETS_PATH"audio/menu-sum infinity.wav");
-    music.looping = true;
-    PlayMusicStream(music);
+    bool HasDied = false;
+    bool playSound = false;
+    Texture2D deadTexture2D = LoadTexture(ASSETS_PATH"textures/dead.png");
+    Sound explosion = LoadSound(ASSETS_PATH"audio/deltarune-explosion.mp3");
+
 
     while (!WindowShouldClose())
     {
-        UpdateMusicStream(music);
+        // UPDATE //
         player.Update();
-        //c1.pos = player.pos;
         playerDrawPos = screenSpace.ToThisSpace(player.pos, gameSpace);
+        bullet.velocity = { ((rand()%100)/20.0f - 2.5f)/1.0f, ((rand() % 100) / 25.0f - 4.0f)/1.0f};
+        //bullet.velocity = { ((rand()%100)/50.0f-1.0f)/20.0f, ((rand() % 100) / 50.0f-1.0f)/20.0f};
+        bm.InstantiateBullet(bullet);
+        bm.Update();
+        if (bm.CollidesWithPlayer(player))
+        {
+            bm.DestroyAllBullets();
+            Log::Message("PlayerHit - You Dubmbass");
+            HasDied = true;
+            playSound = true;
+        }
+
+        if (playSound)
+        {
+            playSound = false;
+            PlaySound(explosion);
+        }
+
+        // DRAW //
 
         BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        DrawFPS(0, 0);
-        //DrawCircle(player.pos.x, player.pos.y, c1.radius, BLACK);
-        DrawCircle(playerDrawPos.x, playerDrawPos.y, 10, BLACK);
-        //if(c1.Intersects(c2))
-        //    DrawCircle(300, 300, 30, RED);
-        //else
-        //    DrawCircle(300, 300, 30, GREEN);
-
+            ClearBackground(RAYWHITE);
+            DrawRectangle(player.pos.x, player.pos.y, 30, 30, BLACK);
+            DrawCircle(player.pos.x + 15, player.pos.y + 15, 10, MAROON);
+            DrawCircle(player.pos.x + 15, player.pos.y + 15, 6, RED);
+            bm.DrawBullets();
+            if (HasDied)
+            {
+                DrawTexture(deadTexture2D, 0, 0, WHITE);
+            }
+            DrawFPS(0, 0);
         EndDrawing();
     }
 
-    UnloadMusicStream(music);
-    CloseAudioDevice();
     CloseWindow();
 
     return 0;

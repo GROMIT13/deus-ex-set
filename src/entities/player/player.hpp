@@ -18,10 +18,11 @@ public:
 		long long hiScore;
 		float speed;
 		float speedSlow;
+		float hitboxRadius;
 	};
 
 	Player(const Vector2& pos, const Properties& playerProperties, const Properties& defaultPlayerProperties);
-	Player(const Player& player) = delete;
+	//Player(const Player& player) = delete;
 	void Update();
 
 private:
@@ -30,9 +31,8 @@ private:
 };
 
 Player::Player(const Vector2& pos, const Properties& playerProperties, const Properties& defaultPlayerProperties)
-	:Entity(pos), properties(playerProperties), defaultProperties(defaultPlayerProperties)
-{
-}
+	:Entity(pos,Object::Type::PLAYER), properties(playerProperties), defaultProperties(defaultPlayerProperties)
+{}
 
 void Player::Update()
 {
@@ -54,10 +54,26 @@ void Player::Update()
 	if (fabs(dir.x) + fabs(dir.y) > 1.5f)
 		speed /= 1.4142135f;
 
-	//Check for bounds (TO DO)
-	//if(pos.x < 0)
-
 	//Move
-	pos = pos + dir;
+	pos = pos + dir * speed;
+
+	//Check for bounds
+	/*if (pos.x < -60.0f)
+		pos.x = -60.0f;
+	if (pos.x >  60.0f)
+		pos.x =  60.0f;
+	if (pos.y < -80.0f)
+		pos.y = -80.0f;
+	if (pos.y >  80.0f)
+		pos.y =  80.0f;*/
+
+	if (pos.x < 0.0f)
+		pos.x = 0.0f;
+	if (pos.x > 12*60.0f - 30)
+		pos.x = 12*60.0f - 30;
+	if (pos.y < 0.0f)
+		pos.y = 0.0f;
+	if (pos.y > 12*80.0f - 30)
+		pos.y = 12*80.0f - 30;
 
 }

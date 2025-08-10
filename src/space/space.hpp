@@ -26,6 +26,6 @@ public:
 		return newPos;
 	}
 
-	Border border;
 private:
+	Border border;
 };

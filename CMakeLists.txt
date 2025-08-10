@@ -25,13 +25,16 @@ file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/
 set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/src/") # Define PROJECT_INCLUDE to be the path to the include directory of the project
 include_directories("${CMAKE_SOURCE_DIR}/src/entities")
 include_directories("${CMAKE_SOURCE_DIR}/src/entities/player")
+include_directories("${CMAKE_SOURCE_DIR}/src/entities/bullet")
 include_directories("${CMAKE_SOURCE_DIR}/src/vec")
 include_directories("${CMAKE_SOURCE_DIR}/src/window")
-include_directories("${CMAKE_SOURCE_DIR}/src/components")
 include_directories("${CMAKE_SOURCE_DIR}/src/space")
+include_directories("${CMAKE_SOURCE_DIR}/src/scenes")
+include_directories("${CMAKE_SOURCE_DIR}/src/scenes/gameScenes")
 
 # Declaring our executable
 add_executable(${PROJECT_NAME})
+target_compile_definitions(deus_ex_set PUBLIC -DFPS=60 )
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)

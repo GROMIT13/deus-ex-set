@@ -87,7 +87,7 @@ inline void BulletManager::DrawBullets()
 		Vector2 origin2 = { rect2.width/2.0f, rect2.height / 2.0f };
 		DrawRectanglePro(rect1, origin1, bulletList[activeBulletID[i]].rotation, DARKBLUE);
 		DrawRectanglePro(rect2, origin2, bulletList[activeBulletID[i]].rotation, BLUE);
-		//DrawCircle(bulletList[activeBulletID[i]].pos.x, bulletList[activeBulletID[i]].pos.y, 7, DARKPURPLE);
+		//DrawCircle(bulletList[activeBulletID[i]].pos.x, bulletList[activeBulletID[i]].pos.y, 3, DARKPURPLE);
 	}
 }
 

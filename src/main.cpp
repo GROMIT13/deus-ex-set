@@ -33,7 +33,7 @@ int main(void)
     SetTargetFPS(FPS);
 
     Vector2 pos = { Window::WidthWS()*0.5f ,Window::HeightWS()*0.75f };
-    Player::Properties properties = { false,2,3,0,0,0,1.5f * 6,0.75f*6,1.0f };
+    Player::Properties properties = { false,2,3,0,0,0,1.5f * 6,0.75f*6,3.0f };
     Player player(pos, properties, properties);
     Vector2 playerDrawPos = { 0,0 };
     BulletManager bm(2000);
@@ -41,7 +41,7 @@ int main(void)
     bullet.canDamagePlayer = true;
     bullet.velocity = { 0.0f,0.0f };
     bullet.acceleration = { 0.0f,0.02f };
-    bullet.hitboxRadius = 5.0f;
+    bullet.hitboxRadius = 3.0f;
     bullet.isActive = true;
     bullet.lifetime = 60 * 20;
     bullet.pos = { Window::WidthWS()/2.0f, Window::HeightWS()/2.0f };
@@ -84,6 +84,7 @@ int main(void)
             DrawRectangle(player.pos.x, player.pos.y, 30, 30, BLACK);
             DrawCircle(player.pos.x + 15, player.pos.y + 15, 10, MAROON);
             DrawCircle(player.pos.x + 15, player.pos.y + 15, 6, RED);
+            //DrawCircle(player.pos.x + 15, player.pos.y + 15, 3, DARKPURPLE);
             bm.DrawBullets();
             if (HasDied)
             {

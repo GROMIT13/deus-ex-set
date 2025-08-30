@@ -9,7 +9,8 @@ public:
 		PLAYER,
 		ENEMY,
 		BULLET,
-		SPRITE
+		SPRITE,
+		MANAGER
 	};
 
 	Object(Object::Type ObjectType) { type = ObjectType; }
@@ -19,5 +20,4 @@ public:
 
 private:
 	Type type;
-
 };

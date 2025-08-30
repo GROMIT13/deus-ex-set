@@ -25,7 +25,6 @@ public:
 		newPos.y = (pos.y - space.border.bottom) / (space.border.top - space.border.bottom) * (border.top - border.bottom);
 		return newPos;
 	}
-
 private:
 	Border border;
 };

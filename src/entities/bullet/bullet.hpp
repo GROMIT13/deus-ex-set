@@ -1,7 +1,7 @@
 #pragma once
 
 #include <functional>
-#include "vec.hpp"
+#include "raylib.h"
 
 struct Bullet
 {
@@ -14,27 +14,13 @@ struct Bullet
 	float rotation;
 	float hitboxRadius;
 	void(*UpdateFunction)(Bullet*);
+	//std::function<void(Bullet*)> UpdateFunction;
 
-	void Update()
-	{
-		if(UpdateFunction)
-			UpdateFunction(this);
-	}
+	void Update();
 
 	//Update function with phisics
 	//Adds set velocity and acceleration
-	void PhysicsUpdate()
-	{
-		velocity = velocity + acceleration;
-		pos = pos + velocity;
-	}
-	
-	void PhysicsUpdateWithRotation()
-	{
-		velocity = velocity + acceleration;
-		pos = pos + velocity;
-		rotation = atan2f(velocity.y*10, velocity.x*10) * 57.2958f;
-	}
+	void PhysicsUpdate();
 
+	void PhysicsUpdateWithRotation();
 };
-

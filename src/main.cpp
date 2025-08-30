@@ -1,5 +1,4 @@
 #define GLSL_VERSION 430
-//#define FPS 60
 
 #include "raylib.h"
 #include "vec.hpp"
@@ -9,6 +8,8 @@
 #include "player.hpp"
 #include "space.hpp"
 #include "bulletManager.hpp"
+#include "baseScene.hpp"
+#include "baseLevel.hpp"
 #include <iostream>
 #include <vector>
 
@@ -33,8 +34,8 @@ int main(void)
     SetTargetFPS(FPS);
 
     Vector2 pos = { Window::WidthWS()*0.5f ,Window::HeightWS()*0.75f };
-    Player::Properties properties = { false,2,3,0,0,0,1.5f * 6,0.75f*6,3.0f };
-    Player player(pos, properties, properties);
+    Player::Properties properties = { false,2,3,0,0,0,1.5f * 6,0.75f * 6,3.0f,{10.0f,10.0f} };
+    Player player({0.0f,0.0f}, properties, properties, nullptr);
     Vector2 playerDrawPos = { 0,0 };
     BulletManager bm(2000);
     Bullet bullet;
@@ -53,9 +54,13 @@ int main(void)
     Texture2D deadTexture2D = LoadTexture(ASSETS_PATH"textures/dead.png");
     Sound explosion = LoadSound(ASSETS_PATH"audio/deltarune-explosion.mp3");
 
+    LevelScene level(gameBorder, screenBorder, player);
 
     while (!WindowShouldClose())
     {
+
+        level.UpdateScene();
+        /*
         // UPDATE //
         player.Update();
         playerDrawPos = screenSpace.ToThisSpace(player.pos, gameSpace);
@@ -92,6 +97,7 @@ int main(void)
             }
             DrawFPS(0, 0);
         EndDrawing();
+        */
     }
 
     CloseWindow();

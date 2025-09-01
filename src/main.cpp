@@ -15,6 +15,7 @@
 
 int main(void)
 {
+    Window::SetScale(3);
     Space::Border gameBorder;
     gameBorder.left   = -60.0f;
     gameBorder.right  =  60.0f;
@@ -49,55 +50,24 @@ int main(void)
     bullet.rotation = 0.0f;
     bullet.UpdateFunction = [](Bullet* bullet) { bullet->PhysicsUpdateWithRotation(); };
 
-    bool HasDied = false;
-    bool playSound = false;
-    Texture2D deadTexture2D = LoadTexture(ASSETS_PATH"textures/dead.png");
-    Sound explosion = LoadSound(ASSETS_PATH"audio/deltarune-explosion.mp3");
+    Texture2D testTexture2D = LoadTexture(ASSETS_PATH"textures/test32.png");
+    SetTextureFilter(testTexture2D, TEXTURE_FILTER_BILINEAR);
+    SetTextureWrap(testTexture2D, TEXTURE_WRAP_CLAMP);
 
     LevelScene level(gameBorder, screenBorder, player);
-
+    Rectangle rect = { 0.0f,0.0f,(float)testTexture2D.height,(float)testTexture2D.width }; //w and h -size of texture
+    Rectangle destRect16 = { 256.0f-64.0f,256.0f,rect.width*8,rect.height*8 };
+    int frame = 0;
     while (!WindowShouldClose())
     {
-
-        level.UpdateScene();
-        /*
-        // UPDATE //
-        player.Update();
-        playerDrawPos = screenSpace.ToThisSpace(player.pos, gameSpace);
-        bullet.velocity = { ((rand()%100)/20.0f - 2.5f)/1.0f, ((rand() % 100) / 25.0f - 4.0f)/1.0f};
-        //bullet.velocity = { ((rand()%100)/50.0f-1.0f)/20.0f, ((rand() % 100) / 50.0f-1.0f)/20.0f};
-        bm.InstantiateBullet(bullet);
-        bm.Update();
-        if (bm.CollidesWithPlayer(player))
-        {
-            bm.DestroyAllBullets();
-            Log::Message("PlayerHit - You Dubmbass");
-            HasDied = true;
-            playSound = true;
-        }
-
-        if (playSound)
-        {
-            playSound = false;
-            PlaySound(explosion);
-        }
-
-        // DRAW //
-
+        frame++;
+        frame++;
+        frame++;
+        //level.UpdateScene();
         BeginDrawing();
             ClearBackground(RAYWHITE);
-            DrawRectangle(player.pos.x, player.pos.y, 30, 30, BLACK);
-            DrawCircle(player.pos.x + 15, player.pos.y + 15, 10, MAROON);
-            DrawCircle(player.pos.x + 15, player.pos.y + 15, 6, RED);
-            //DrawCircle(player.pos.x + 15, player.pos.y + 15, 3, DARKPURPLE);
-            bm.DrawBullets();
-            if (HasDied)
-            {
-                DrawTexture(deadTexture2D, 0, 0, WHITE);
-            }
-            DrawFPS(0, 0);
+            DrawTexturePro(testTexture2D, rect, destRect16, { destRect16.width/2.0f,destRect16.height/2.0f }, frame, WHITE);
         EndDrawing();
-        */
     }
 
     CloseWindow();

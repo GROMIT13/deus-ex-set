@@ -1,12 +1,13 @@
 #include "player.hpp"
 #include "vec.hpp"
-#include <cmath>
-#include "baseScene.hpp"
+#include "baseLevel.hpp"
 #include "window.hpp"
+#include "draw.hpp"
+#include <cmath>
 
 // NOTE: if player does not belong to scene set Scene* to nullptr
-Player::Player(const Vector2& pos, const Properties& playerProperties, const Properties& defaultPlayerProperties, Scene* scene)
-	:Entity(pos, Object::Type::PLAYER), properties(playerProperties), defaultProperties(defaultPlayerProperties), scene(scene)
+Player::Player(const Vector2& pos, const Properties& playerProperties, const Properties& defaultPlayerProperties, LevelScene* scene)
+	:Entity(pos, Object::Type::PLAYER, scene), properties(playerProperties), defaultProperties(defaultPlayerProperties)
 {
 }
 
@@ -41,24 +42,14 @@ void Player::Update()
 	//Move
 	pos = pos + dir * speed;
 	//Check for bounds
-	/*if (pos.x < scene->GetGameSpace().border.left + defaultProperties.dimensions.x / 2.0f)
+	if (pos.x < scene->GetGameSpace().border.left + defaultProperties.dimensions.x / 2.0f)
 		pos.x = scene->GetGameSpace().border.left + defaultProperties.dimensions.x / 2.0f;
 	if (pos.x > scene->GetGameSpace().border.right - defaultProperties.dimensions.x / 2.0f)
 		pos.x = scene->GetGameSpace().border.right - defaultProperties.dimensions.x / 2.0f;
 	if (pos.y < scene->GetGameSpace().border.bottom + defaultProperties.dimensions.y / 2.0f)
 		pos.y = scene->GetGameSpace().border.bottom + defaultProperties.dimensions.y / 2.0f;
 	if (pos.y > scene->GetGameSpace().border.top - defaultProperties.dimensions.y / 2.0f)
-		pos.y = scene->GetGameSpace().border.top - defaultProperties.dimensions.y / 2.0f;*/
-		//scene->GetGameSpace();
-		//if (pos.x < 0.0f)
-		//	pos.x = 0.0f;
-		//if (pos.x > 12*60.0f - 30)
-		//	pos.x = 12*60.0f - 30;
-		//if (pos.y < 0.0f)
-		//	pos.y = 0.0f;
-		//if (pos.y > 12*80.0f - 30)
-		//	pos.y = 12*80.0f - 30;
-
+		pos.y = scene->GetGameSpace().border.top - defaultProperties.dimensions.y / 2.0f;
 
 }
 
@@ -67,6 +58,7 @@ void Player::DrawSprite()
 {
 	Vector2 drawPos = scene->GetScreenSpace().ToThisSpace(pos,scene->GetGameSpace());
 	DrawCircleV(drawPos, 30 * Window::Scale(), DARKBLUE);
+	DrawCircleV(pos, 15, BLUE, scene);
 }
 
 Player::Properties Player::GetProperties() const

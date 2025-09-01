@@ -3,7 +3,7 @@
 #include "raylib.h"
 #include "entity.hpp"
 
-class Scene;
+class LevelScene;
 
 class Player : public Entity
 {
@@ -22,7 +22,7 @@ public:
 		Vector2 dimensions; //defines dimensions for colision with bounds
 	};
 
-	Player(const Vector2& pos, const Properties& playerProperties, const Properties& defaultPlayerProperties, Scene* scene);
+	Player(const Vector2& pos, const Properties& playerProperties, const Properties& defaultPlayerProperties, LevelScene* scene);
 	Player(const Player& player);
 	~Player();
 	void Update();
@@ -31,7 +31,6 @@ public:
 	Properties GetDefaultProperties() const;
 
 private:
-	Scene* scene;
 	const Properties defaultProperties;
 	Properties properties;
 };

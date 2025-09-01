@@ -32,6 +32,7 @@ include_directories("${CMAKE_SOURCE_DIR}/src/space")
 include_directories("${CMAKE_SOURCE_DIR}/src/scenes")
 include_directories("${CMAKE_SOURCE_DIR}/src/scenes/gameScenes")
 include_directories("${CMAKE_SOURCE_DIR}/src/test")
+include_directories("${CMAKE_SOURCE_DIR}/src/graphics")
 
 # Declaring our executable
 add_executable(${PROJECT_NAME})

@@ -26,6 +26,7 @@ BulletManager::BulletManager(int bulletCount)
 BulletManager::~BulletManager()
 {
 	delete[] bulletList;
+	delete[] activeBulletID;
 }
 
 void BulletManager::Update()

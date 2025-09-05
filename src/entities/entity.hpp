@@ -14,6 +14,7 @@ public:
 	Entity(float x, float y, Object::Type ObjectType, LevelScene* scene);
 	Entity(const Vector2& pos, Object::Type ObjectType, LevelScene* scene);
 	Entity(const Entity& entity);
+	~Entity() override {}
 	inline long long getId() { return id; }
 	LevelScene* GetScene() const;
 private:

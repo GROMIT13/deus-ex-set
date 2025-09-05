@@ -14,6 +14,7 @@ public:
 	};
 
 	Object(Object::Type ObjectType) { type = ObjectType; }
+	virtual ~Object() {}
 	Type GetType() const { return type; }
 	virtual void Update() = 0;
 

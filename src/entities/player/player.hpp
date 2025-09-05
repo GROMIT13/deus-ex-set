@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 #include "entity.hpp"
+#include "spriteManager.hpp"
+#include "log.hpp"
 
 class LevelScene;
 
@@ -20,13 +22,16 @@ public:
 		float speedSlow;
 		float hitboxRadius;
 		Vector2 dimensions; //defines dimensions for colision with bounds
+		SpriteName spriteName;
+		float spriteRotation;
 	};
 
 	Player(const Vector2& pos, const Properties& playerProperties, const Properties& defaultPlayerProperties, LevelScene* scene);
 	Player(const Player& player);
-	~Player();
-	void Update();
+	~Player() override;
+	void Update() override;
 	void DrawSprite();
+	virtual void Shoot() { Log::Success("PLAYER SHOOTS"); }
 	Properties GetProperties() const;
 	Properties GetDefaultProperties() const;
 

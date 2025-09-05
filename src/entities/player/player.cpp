@@ -3,6 +3,7 @@
 #include "baseLevel.hpp"
 #include "window.hpp"
 #include "draw.hpp"
+#include "log.hpp"
 #include <cmath>
 
 // NOTE: if player does not belong to scene set Scene* to nullptr
@@ -53,12 +54,11 @@ void Player::Update()
 
 }
 
-//TO DO: Finish
 void Player::DrawSprite()
 {
-	Vector2 drawPos = scene->GetScreenSpace().ToThisSpace(pos,scene->GetGameSpace());
-	DrawCircleV(drawPos, 30 * Window::Scale(), DARKBLUE);
-	DrawCircleV(pos, 15, BLUE, scene);
+
+	scene->DrawSprite(properties.spriteName, pos, properties.spriteRotation, WHITE);
+	scene->DrawSprite(SpriteName::ALEPH, pos, 0, RED);
 }
 
 Player::Properties Player::GetProperties() const

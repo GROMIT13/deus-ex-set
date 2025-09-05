@@ -20,13 +20,13 @@ Sprite::Sprite(const char* file, TextureFilter filter, TextureWrap wrap)
 	dimensions = { (float)(texture2D.width / 6.0f), (float)(texture2D.height / 6.0f) };
 }
 
-void Sprite::Draw(const Vector2& pos, float rotation, Color color)
+void Sprite::Draw(const Vector2& pos, float rotation, Color color) const
 {
 	Rectangle destRect = { pos.x,pos.y,dimensions.x * Window::Scale(), dimensions.y * Window::Scale() };
 	DrawTexturePro(texture2D, sourceRect, destRect, { destRect.width / 2.0f, destRect.height / 2.0f }, rotation, color);
 }
 
-void Sprite::Draw(const Vector2& pos, float rotation, Color color, Scene* scene)
+void Sprite::Draw(const Vector2& pos, float rotation, Color color, Scene* scene) const
 {
 	Vector2 drawPos = scene->GetScreenSpace().ToThisSpace(pos, scene->GetGameSpace());
 	Draw(drawPos, rotation, color);

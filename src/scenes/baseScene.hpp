@@ -1,10 +1,8 @@
 #pragma once
 
-//#include <vector>
 #include "space.hpp"
-//#include "object.hpp"
-//#include "player.hpp"
-//#include "entity.hpp"
+#include "spriteManager.hpp"
+#include "currentScene.hpp"
 
 // Base Scene
 class Scene
@@ -12,12 +10,14 @@ class Scene
 public:
 	Scene(const Space::Border& gameBorder, const Space::Border& screenBorder);
 	~Scene();
-	void UpdateScene();
-	Space GetGameSpace();
-	Space GetScreenSpace();
+	virtual CurrentScene UpdateScene();
+	Space GetGameSpace() const;
+	Space GetScreenSpace() const;
+	void DrawSprite(SpriteName spriteName, const Vector2& pos, float rotation, Color color) const;
 
 protected:
 	int frameCounter;
 	Space gameSpace;
 	Space screenSpace;
+	SpriteManager spriteManager;
 };

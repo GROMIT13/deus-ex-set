@@ -10,18 +10,24 @@ Scene::~Scene()
 {
 }
 
-void Scene::UpdateScene()
+CurrentScene Scene::UpdateScene()
 {
 	frameCounter++;
 	Log::Message("Updated BaseScene");
+	return CurrentScene::EXIT;
 }
 
-Space Scene::GetGameSpace()
+Space Scene::GetGameSpace() const
 {
 	return gameSpace;
 }
 
-Space Scene::GetScreenSpace()
+Space Scene::GetScreenSpace() const
 {
 	return screenSpace;
+}
+
+void Scene::DrawSprite(SpriteName spriteName, const Vector2& pos, float rotation, Color color) const
+{
+	spriteManager.DrawSprite(spriteName, pos, rotation, color, (Scene*)this);
 }

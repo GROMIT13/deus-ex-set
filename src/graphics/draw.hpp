@@ -1,11 +1,8 @@
 #pragma once
 
 #include "raylib.h"
-#include "baseScene.hpp"
-#include "Window.hpp"
 
-void DrawCircleV(Vector2 center, float radius, Color color, Scene* scene)
-{
-	Vector2 drawPos = scene->GetScreenSpace().ToThisSpace(center, scene->GetGameSpace());
-	DrawCircleV(drawPos, radius * Window::Scale(), color);
-}
+class Scene;
+
+void DrawCircleV(Vector2 center, float radius, Color color, Scene* scene);
+void DrawRectangleV(Vector2 position, Vector2 size, Color color, Scene* scene);

@@ -46,3 +46,5 @@ private:
 
 };
 
+int GetMaxWindowScale();
+void SetWindowPositionCenter();

@@ -23,6 +23,14 @@ void SpriteManager::LoadSprite(SpriteName spriteName)
 	}
 }
 
+void SpriteManager::LoadAllSprites()
+{
+	for (int i = 0; i < static_cast<int>(SpriteName::LAST); i++)
+	{
+		LoadSprite(static_cast<SpriteName>(i));
+	}
+}
+
 void SpriteManager::UnloadSprite(SpriteName spriteName)
 {
 	try
@@ -38,7 +46,7 @@ void SpriteManager::UnloadSprite(SpriteName spriteName)
 }
 
 //NOTE: pos is in pixels
-void SpriteManager::DrawSprite(SpriteName spriteName, const Vector2& pos, float rotation, Color color)
+void SpriteManager::DrawSprite(SpriteName spriteName, const Vector2& pos, float rotation, Color color) const
 {
 	try
 	{
@@ -51,7 +59,7 @@ void SpriteManager::DrawSprite(SpriteName spriteName, const Vector2& pos, float 
 }
 
 //NOTE: pos is in gameSpace units
-void SpriteManager::DrawSprite(SpriteName spriteName, const Vector2& pos, float rotation, Color color, Scene* scene)
+void SpriteManager::DrawSprite(SpriteName spriteName, const Vector2& pos, float rotation, Color color, Scene* scene) const
 {
 	try
 	{
@@ -63,7 +71,7 @@ void SpriteManager::DrawSprite(SpriteName spriteName, const Vector2& pos, float 
 	}
 }
 
-const char* SpriteManager::GetSpriteFileName(SpriteName spriteName)
+const char* SpriteManager::GetSpriteFileName(SpriteName spriteName) const
 {
 	try
 	{

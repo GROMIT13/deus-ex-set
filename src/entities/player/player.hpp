@@ -31,6 +31,7 @@ public:
 	~Player() override;
 	void Update() override;
 	void DrawSprite();
+	void DrawHitbox();
 	virtual void Shoot() { Log::Warn("DO NOT USE SHOOT METHOD ON BASE PLAYER CLASS"); }
 	Properties GetProperties() const;
 	Properties GetDefaultProperties() const;

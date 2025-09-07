@@ -57,8 +57,11 @@ void Player::Update()
 
 void Player::DrawSprite()
 {
-
 	scene->DrawSprite(properties.spriteName, pos, properties.spriteRotation, WHITE);
+}
+
+void Player::DrawHitbox()
+{
 	scene->DrawSprite(SpriteName::ALEPH, pos, 0, RED);
 }
 

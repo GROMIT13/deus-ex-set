@@ -52,6 +52,7 @@ void Player::Update()
 	if (pos.y > scene->GetGameSpace().border.top - defaultProperties.dimensions.y / 2.0f)
 		pos.y = scene->GetGameSpace().border.top - defaultProperties.dimensions.y / 2.0f;
 
+	Shoot();
 }
 
 void Player::DrawSprite()

@@ -1,10 +1,12 @@
 #include "bulletManager.hpp"
+#include "baseLevel.hpp"
 #include "player.hpp"
+#include "draw.hpp"
 #include "vec.hpp"
 
 
-BulletManager::BulletManager(int bulletCount)
-	:bulletCount(bulletCount), bulletHead(0), activeBullets(0)
+BulletManager::BulletManager(int bulletCount, LevelScene* scene)
+	:bulletCount(bulletCount), bulletHead(0), activeBullets(0), scene(scene)
 {
 	Bullet baseBullet;
 	baseBullet.isActive = false;
@@ -15,7 +17,8 @@ BulletManager::BulletManager(int bulletCount)
 	baseBullet.acceleration = { 0.0f,0.0f };
 	baseBullet.rotation = 0.0f;
 	baseBullet.hitboxRadius = 0.0f;
-	baseBullet.hitboxRadius = 0.0f;
+	baseBullet.spriteName = SpriteName::TEST32;
+	baseBullet.color = WHITE;
 
 	bulletList = new Bullet[bulletCount];
 	activeBulletID = new int[bulletCount];
@@ -55,27 +58,29 @@ void BulletManager::Update()
 	}
 }
 
-inline void BulletManager::DrawBullets()
+void BulletManager::DrawBullets()
 {
 	for (int i = 0; i < activeBullets; i++)
 	{
-		Rectangle rect1 = { bulletList[activeBulletID[i]].pos.x, bulletList[activeBulletID[i]].pos.y, 20.0f,20.0f };
-		Rectangle rect2 = { bulletList[activeBulletID[i]].pos.x, bulletList[activeBulletID[i]].pos.y, 16.0f,16.0f };
-		Vector2 origin1 = { rect1.width/2.0f, rect1.height / 2.0f };
-		Vector2 origin2 = { rect2.width/2.0f, rect2.height / 2.0f };
-		DrawRectanglePro(rect1, origin1, bulletList[activeBulletID[i]].rotation, DARKBLUE);
-		DrawRectanglePro(rect2, origin2, bulletList[activeBulletID[i]].rotation, BLUE);
-		//DrawCircle(bulletList[activeBulletID[i]].pos.x, bulletList[activeBulletID[i]].pos.y, 3, DARKPURPLE);
+		scene->DrawSprite(bulletList[activeBulletID[i]].spriteName, bulletList[activeBulletID[i]].pos, bulletList[activeBulletID[i]].rotation, bulletList[activeBulletID[i]].color);
 	}
 }
 
-inline void BulletManager::InstantiateBullet(const Bullet& bullet)
+void BulletManager::DrawHitboxes(Color color)
+{
+	for (int i = 0; i < activeBullets; i++)
+	{
+		DrawCircleV(bulletList[activeBulletID[i]].pos, bulletList[activeBulletID[i]].hitboxRadius, color, scene);
+	}
+}
+
+void BulletManager::InstantiateBullet(const Bullet& bullet)
 {
 	bulletList[bulletHead] = bullet;
 	bulletHead = (bulletHead + 1) % bulletCount;
 }
 
-inline bool BulletManager::CollidesWithPlayer(const Player& player)
+bool BulletManager::CollidesWithPlayer(const Player& player)
 {
 	for (int i = 0; i < activeBullets; i++)
 	{
@@ -86,7 +91,7 @@ inline bool BulletManager::CollidesWithPlayer(const Player& player)
 	return false;
 }
 
-inline void BulletManager::DestroyAllBullets()
+void BulletManager::DestroyAllBullets()
 {
 	for (int i = 0; i < activeBullets; i++)
 	{

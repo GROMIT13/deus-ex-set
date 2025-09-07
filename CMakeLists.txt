@@ -26,6 +26,7 @@ set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/src/") # Define PROJECT_INCLUDE t
 include_directories("${CMAKE_SOURCE_DIR}/src/entities")
 include_directories("${CMAKE_SOURCE_DIR}/src/entities/player")
 include_directories("${CMAKE_SOURCE_DIR}/src/entities/bullet")
+include_directories("${CMAKE_SOURCE_DIR}/src/entities/enemies")
 include_directories("${CMAKE_SOURCE_DIR}/src/vec")
 include_directories("${CMAKE_SOURCE_DIR}/src/window")
 include_directories("${CMAKE_SOURCE_DIR}/src/space")
@@ -36,7 +37,7 @@ include_directories("${CMAKE_SOURCE_DIR}/src/graphics")
 
 # Declaring our executable
 add_executable(${PROJECT_NAME})
-target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES} "src/entities/entity.cpp" "src/entities/player/player.cpp" "src/scenes/baseScene.cpp" "src/entities/bullet/bullet.cpp" "src/entities/bullet/bulletManager.cpp" "src/scenes/baseLevel.cpp" "src/graphics/spriteManager.cpp" "src/graphics/sprite.cpp" "src/entities/player/playerS.cpp" "src/entities/player/playerP.cpp" "src/graphics/draw.cpp" "src/window/window.cpp" "src/scenes/gameScenes/menu.cpp")
+target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES} "src/entities/entity.cpp" "src/entities/player/player.cpp" "src/scenes/baseScene.cpp" "src/entities/bullet/bullet.cpp" "src/entities/bullet/bulletManager.cpp" "src/scenes/baseLevel.cpp" "src/graphics/spriteManager.cpp" "src/graphics/sprite.cpp" "src/entities/player/playerS.cpp" "src/entities/player/playerP.cpp" "src/graphics/draw.cpp" "src/window/window.cpp" "src/scenes/gameScenes/menu.cpp" "src/entities/enemies/enemy.cpp")
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 

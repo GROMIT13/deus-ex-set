@@ -3,12 +3,11 @@
 #include "playerP.hpp"
 #include "player.hpp"
 #include "draw.hpp"
-//#include "log.hpp"
 
 LevelScene::LevelScene(const Space::Border& gameBorder, const Space::Border& screenBorder, PlayerType playerType)
 	:Scene(gameBorder, screenBorder),
-	enemyBM(ENEMY_BM_COUNT),
-	playerBM(PLAYER_BM_COUNT)
+	enemyBM(ENEMY_BM_COUNT, this),
+	playerBM(PLAYER_BM_COUNT, this)
 {
 	
 	if (playerType == PlayerType::S)
@@ -16,15 +15,18 @@ LevelScene::LevelScene(const Space::Border& gameBorder, const Space::Border& scr
 		Player::Properties properties = { false,2,3,0,0,0,1.7f,0.75f,3.0f,{11.5f + 18,10.0f + 24.0f}, SpriteName::SIGMA,270 };
 		Vector2 pos = { 0.0f,60.0f };
 	    player = std::make_unique<PlayerS>(pos, properties, properties, this);
+		currentScene = CurrentScene::LEVEL1_S;
 	}
 	else if (playerType == PlayerType::P)
 	{
 		Player::Properties properties = { false,2,3,0,0,0,1.7f,0.75f,3.0f,{12.0f+18,12.0f+24.0f}, SpriteName::PI_SYMBOL,180 };
 		Vector2 pos = { 0.0f,60.0f };
-		player = std::make_unique<PlayerS>(pos, properties, properties, this);
+		player = std::make_unique<PlayerP>(pos, properties, properties, this);
+		currentScene = CurrentScene::LEVEL1_P;
 	}
 	else
 	{
+		currentScene = CurrentScene::EXIT;
 		Log::Error("Player of this type does not exist");
 	}
 
@@ -41,6 +43,12 @@ CurrentScene LevelScene::UpdateScene()
 	////// UPDATE //////
 	frameCounter++;
 	player->Update();
+	playerBM.Update();
+
+
+	//Quit Scene button
+	if (IsKeyPressed(KEY_Q))
+		currentScene = CurrentScene::MENU;
 
 	////// DRAWING //////
 	BeginDrawing();
@@ -49,6 +57,8 @@ CurrentScene LevelScene::UpdateScene()
 
 	// PLAYER/ENEMIES //
 	player->DrawSprite();
+	playerBM.DrawBullets();
+	playerBM.DrawHitboxes({ 0, 121, 241, 63 });
 
 	// BULLETS //
 
@@ -59,7 +69,12 @@ CurrentScene LevelScene::UpdateScene()
 
 	////// END DRAWING //////
 	EndDrawing();
-	return CurrentScene::LEVEL1_S;
+	return currentScene;
+}
+
+void LevelScene::PlayerShootTheBullet(const Bullet& bullet)
+{
+	playerBM.InstantiateBullet(bullet);
 }
 
 void LevelScene::DrawUI()

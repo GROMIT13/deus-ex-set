@@ -31,7 +31,7 @@ void PlayerP::Shoot()
 		leftBullet.velocity = { -0.2f,-8.0f };
 		leftBullet.acceleration = { 0.0f,0.0f };
 		leftBullet.rotation = -25.0f;
-		leftBullet.hitboxRadius = 4.0f;
+		leftBullet.hitboxRadius = 3.0f;
 		leftBullet.spriteName = SpriteName::INTEGRAL;
 		leftBullet.UpdateFunction = [](Bullet* bullet) { bullet->PhysicsUpdate(); };
 		leftBullet.color = {255,255,255,127};
@@ -44,7 +44,7 @@ void PlayerP::Shoot()
 		rightBullet.velocity = { 0.2f,-8.0f };
 		rightBullet.acceleration = { 0.0f,0.0f };
 		rightBullet.rotation = 25.0f;
-		rightBullet.hitboxRadius = 4.0f;
+		rightBullet.hitboxRadius = 3.0f;
 		rightBullet.spriteName = SpriteName::INTEGRAL_MIRROR;
 		rightBullet.UpdateFunction = [](Bullet* bullet) { bullet->PhysicsUpdate(); };
 		rightBullet.color = { 255,255,255,127 };

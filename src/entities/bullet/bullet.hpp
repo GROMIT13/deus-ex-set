@@ -2,6 +2,7 @@
 
 #include <functional>
 #include "raylib.h"
+#include "spriteManager.hpp"
 
 struct Bullet
 {
@@ -14,6 +15,8 @@ struct Bullet
 	float rotation;
 	float hitboxRadius;
 	void(*UpdateFunction)(Bullet*);
+	SpriteName spriteName;
+	Color color;
 	//std::function<void(Bullet*)> UpdateFunction;
 
 	void Update();

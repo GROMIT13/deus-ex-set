@@ -1,6 +1,7 @@
 #include "bulletManager.hpp"
 #include "baseLevel.hpp"
 #include "player.hpp"
+#include "enemy.hpp"
 #include "draw.hpp"
 #include "vec.hpp"
 
@@ -84,8 +85,17 @@ bool BulletManager::CollidesWithPlayer(const Player& player)
 {
 	for (int i = 0; i < activeBullets; i++)
 	{
-		Vector2 funnyOffset = { 15.0, 15.0 };
-		if (CheckCollisionCircles(player.pos + funnyOffset, 5.0f, bulletList[activeBulletID[i]].pos, bulletList[activeBulletID[i]].hitboxRadius))
+		if (CheckCollisionCircles(player.pos, player.GetProperties().hitboxRadius, bulletList[activeBulletID[i]].pos, bulletList[activeBulletID[i]].hitboxRadius))
+			return true;
+	}
+	return false;
+}
+
+bool BulletManager::CollidesWithEnemy(const Enemy& enemy)
+{
+	for (int i = 0; i < activeBullets; i++)
+	{
+		if (CheckCollisionCircles(enemy.pos, enemy.GetProperties().hitboxRadius, bulletList[activeBulletID[i]].pos, bulletList[activeBulletID[i]].hitboxRadius))
 			return true;
 	}
 	return false;

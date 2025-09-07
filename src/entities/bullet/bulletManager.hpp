@@ -2,6 +2,7 @@
 
 #include "bullet.hpp"
 
+class Enemy;
 class Player;
 class LevelScene;
 
@@ -16,6 +17,7 @@ public:
 	void DrawHitboxes(Color color);
 	void InstantiateBullet(const Bullet& bullet);
 	bool CollidesWithPlayer(const Player& player);
+	bool CollidesWithEnemy(const Enemy& enemy);
 	void DestroyAllBullets();
 
 public:

@@ -17,7 +17,6 @@ struct Bullet
 	void(*UpdateFunction)(Bullet*);
 	SpriteName spriteName;
 	Color color;
-	//std::function<void(Bullet*)> UpdateFunction;
 
 	void Update();
 

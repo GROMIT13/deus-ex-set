@@ -4,6 +4,7 @@
 #include "spriteManager.hpp"
 
 class LevelScene;
+struct Bullet;
 
 class Enemy : public Entity
 {
@@ -22,12 +23,18 @@ public:
 		Vector2 tempPosB;
 		SpriteName spriteName;
 		Color color;
+		void (*UpdateFunction)(Enemy*);
+		void (*ShootFunction)(Enemy*);
 	};
 	Enemy(const Vector2& pos, LevelScene* scene, Properties properties);
 	~Enemy();
 	void Update() override;
 	Enemy::Properties GetProperties() const;
 	void DealDamage(float damage);
+	void LookAtPlayer(float angleoffset);
+	void Move(const Vector2 vec2);
+	void Shoot();
+	void InstantiateBullet();
 
 private:
 	Properties properties;

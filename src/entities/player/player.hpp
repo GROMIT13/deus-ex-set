@@ -35,6 +35,9 @@ public:
 	virtual void Shoot() { Log::Warn("DO NOT USE SHOOT METHOD ON BASE PLAYER CLASS"); }
 	Properties GetProperties() const;
 	Properties GetDefaultProperties() const;
+	void AddLife();
+	void RemoveLife();
+	bool IsDead();
 
 private:
 	const Properties defaultProperties;

@@ -53,6 +53,12 @@ void Player::Update()
 		pos.y = scene->GetGameSpace().border.top - defaultProperties.dimensions.y / 2.0f;
 
 	Shoot();
+
+	if (scene->CollidesWithPlayer())
+	{
+		scene->DestroyAllEnemyBullets();
+		RemoveLife();
+	}
 }
 
 void Player::DrawSprite()
@@ -73,4 +79,21 @@ Player::Properties Player::GetProperties() const
 Player::Properties Player::GetDefaultProperties() const 
 {
 	return defaultProperties;
+}
+
+void Player::AddLife()
+{
+	if (properties.lives <= 9)
+		properties.lives++;
+}
+
+void Player::RemoveLife()
+{
+	if(properties.lives > 0)
+		properties.lives--;
+}
+
+bool Player::IsDead()
+{
+	return properties.lives <= 0 ? true : false;
 }

@@ -18,7 +18,7 @@ enum class SpriteName
 	BIG_SUM,
 	DELTA,
 	EUQIVALENT,
-	EXIISTS,
+	EXISTS,
 	FOR_ALL,
 	FUNCTION,
 	HERMIT,
@@ -62,7 +62,9 @@ enum class SpriteName
 	QUIT_TEXT,
 	START_TEXT,
 	TITLE_TEXT,
-
+	GAME_OVER_TEXT,
+	STAGE_TEXT,
+	COMPLETED_TEXT,
 	LAST //This sprite does not exist, it's here for iterating over sprites
 };
 
@@ -92,7 +94,7 @@ private:
 		   {SpriteName::BIG_SUM, "big_sum.png"},
 		   {SpriteName::DELTA, "delta.png"},
 		   {SpriteName::EUQIVALENT, "equivalent.png"},
-		   {SpriteName::EXIISTS, "exists.png"},
+		   {SpriteName::EXISTS, "exists.png"},
 		   {SpriteName::FOR_ALL, "for_all.png"},
 		   {SpriteName::FUNCTION, "function.png"},
 		   {SpriteName::HERMIT, "hermit.png"},
@@ -135,6 +137,9 @@ private:
 		   {SpriteName::PLAYER_SELECT_TEXT, "player_select.png"},
 		   {SpriteName::QUIT_TEXT, "quit.png"},
 		   {SpriteName::START_TEXT, "start.png"},
-		   {SpriteName::TITLE_TEXT, "title.png"}
+		   {SpriteName::TITLE_TEXT, "title.png"},
+		   {SpriteName::GAME_OVER_TEXT, "game_over.png"},
+		   {SpriteName::STAGE_TEXT, "stage.png"},
+		   {SpriteName::COMPLETED_TEXT, "completed.png"},
 	};
 };

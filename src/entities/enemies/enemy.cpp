@@ -18,6 +18,7 @@ void Enemy::Update()
 	if (properties.UpdateFunction)
 	{
 		properties.UpdateFunction(this);
+		properties.lifeTime--;
 	}
 	else
 	{
@@ -40,10 +41,9 @@ void Enemy::LookAtPlayer(float angleoffset)
 	properties.rotation = scene->AimAtPlayer(pos) + angleoffset;
 }
 
-//Move by vector in one "second"
 void Enemy::Move(const Vector2 vec2)
 {
-	pos = pos + (vec2 * (1.0f/60.0f));
+	pos = pos + vec2;
 }
 
 void Enemy::Shoot()
@@ -59,20 +59,57 @@ void Enemy::Shoot()
 
 }
 
-void Enemy::InstantiateBullet()
+void Enemy::InstantiateBullet(const Bullet& bullet)
 {
-	Bullet baseBullet;
-	baseBullet.isActive = true;
-	baseBullet.canDamagePlayer = true;
-	baseBullet.lifetime = 100;
-	baseBullet.pos = pos;
-	baseBullet.velocity = { 0.0f,1.0f};
-	baseBullet.acceleration = { 0.0f,0.0f };
-	baseBullet.rotation = 0.0f;
-	baseBullet.hitboxRadius = 1.0f;
-	baseBullet.spriteName = SpriteName::TEST32;
-	baseBullet.color = WHITE;
-	baseBullet.UpdateFunction = [](Bullet* bullet) { bullet->PhysicsUpdate(); };
-	scene->EnemyShootTheBullet(baseBullet);
+	scene->EnemyShootTheBullet(bullet);
+}
+
+void Enemy::InstantiateBulletCircleWall(const Bullet& bullet, int count)
+{
+	float vecLength = sqrt(bullet.velocity.x * bullet.velocity.x + bullet.velocity.y * bullet.velocity.y);
+	float phi = atan2(bullet.velocity.y, bullet.velocity.x);
+	float theta = 2.0f * PI;
+	Bullet bulletInstance = bullet;
+
+	for (int i = 0; i < count; i++)
+	{
+		bulletInstance.velocity = vecLength * Vector2{ cosf((phi + float(theta * i)) / ((float)count)),sinf((phi + float(theta * i)) / ((float)count)) };
+		InstantiateBullet(bulletInstance);
+	}
+}
+
+void Enemy::InstantiateBulletCircle(const Bullet& bullet, int count)
+{
+	Bullet bulletInstance = bullet;
+	for (int i = 0; i < count; i++)
+	{
+		bulletInstance.velocity = { cosf(((float)(i)) * 2.0f * PI / ((float)(count))), sinf(((float)(i)) * 2.0f * PI / ((float)(count))) };
+		bulletInstance.rotation = (((float)(i)) * 2.0f * PI / ((float)(count))) * 57.2958f;
+		InstantiateBullet(bulletInstance);
+	}
+}
+
+bool Enemy::CanAttack(int frames)
+{
+	if (frames <= properties.attackCounter)
+	{
+		properties.attackCounter = 0;
+		return true;
+	}
+	else
+	{
+		properties.attackCounter++;
+		return false;
+	}
+}
+
+Vector2 Enemy::VectorAtPlayer()
+{
+	return scene->VectorAtPlayer(pos);
+}
+
+float Enemy::AimAtPlayer()
+{
+	return scene->AimAtPlayer(pos);
 }
 

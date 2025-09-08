@@ -11,6 +11,7 @@ class Enemy : public Entity
 public:
 	struct Properties
 	{
+		int lifeTime;
 		int spawnFrame;
 		int attackCounter; //Time when enemy shoots
 		int numOfAttacks; //How many times enemy attacks
@@ -34,8 +35,13 @@ public:
 	void LookAtPlayer(float angleoffset);
 	void Move(const Vector2 vec2);
 	void Shoot();
-	void InstantiateBullet();
+	void InstantiateBullet(const Bullet& bullet);
+	void InstantiateBulletCircleWall(const Bullet& bullet, int count);
+	void InstantiateBulletCircle(const Bullet& bullet, int count);
+	bool CanAttack(int frames);
+	Vector2 VectorAtPlayer();
+	float AimAtPlayer();
 
-private:
 	Properties properties;
+private:
 };

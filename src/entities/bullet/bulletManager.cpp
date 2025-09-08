@@ -20,6 +20,7 @@ BulletManager::BulletManager(int bulletCount, LevelScene* scene)
 	baseBullet.hitboxRadius = 0.0f;
 	baseBullet.spriteName = SpriteName::TEST32;
 	baseBullet.color = WHITE;
+	baseBullet.UpdateFunction = nullptr;
 
 	bulletList = new Bullet[bulletCount];
 	activeBulletID = new int[bulletCount];

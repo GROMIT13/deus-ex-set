@@ -1,10 +1,18 @@
 #include "bullet.hpp"
 #include "vec.hpp"
+#include "log.hpp"
 
 void Bullet::Update()
 {
 	if (UpdateFunction)
+	{
 		UpdateFunction(this);
+	}
+	else
+	{
+		Log::Error("Bullet UpdateFunction was not initialized");
+	}
+
 }
 
 void Bullet::PhysicsUpdate()

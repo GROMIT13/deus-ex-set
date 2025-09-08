@@ -63,7 +63,7 @@ void Player::Update()
 
 void Player::DrawSprite()
 {
-	scene->DrawSprite(properties.spriteName, pos, properties.spriteRotation, WHITE);
+	scene->DrawSprite(properties.spriteName, pos, properties.spriteRotation, LIGHTGRAY);
 }
 
 void Player::DrawHitbox()

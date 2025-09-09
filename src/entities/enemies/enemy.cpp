@@ -3,6 +3,7 @@
 #include "log.hpp"
 #include "vec.hpp"
 #include "bullet.hpp"
+#include "math.h"
 
 Enemy::Enemy(const Vector2& pos, LevelScene* scene, Properties properties)
 	:Entity(pos, Object::Type::ENEMY, scene),properties(properties)

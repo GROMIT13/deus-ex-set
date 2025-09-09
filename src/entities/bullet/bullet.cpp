@@ -1,6 +1,7 @@
 #include "bullet.hpp"
 #include "vec.hpp"
 #include "log.hpp"
+#include "math.h"
 
 void Bullet::Update()
 {

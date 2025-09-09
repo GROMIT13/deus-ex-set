@@ -6,6 +6,7 @@
 #include "currentScene.hpp"
 #include "bullet.hpp"
 #include "enemy.hpp"
+#include <vector>
 
 
 #define ENEMY_BM_COUNT 10000

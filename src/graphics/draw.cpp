@@ -1,6 +1,6 @@
 #include "draw.hpp"
 #include "baseScene.hpp"
-#include "Window.hpp"
+#include "window.hpp"
 #include "vec.hpp"
 
 void DrawCircleV(Vector2 center, float radius, Color color, Scene* scene)

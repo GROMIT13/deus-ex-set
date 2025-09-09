@@ -7,7 +7,7 @@
 #include "bullet.hpp"
 #include "enemy.hpp"
 #include <vector>
-
+#include <memory>
 
 #define ENEMY_BM_COUNT 10000
 #define PLAYER_BM_COUNT 1000

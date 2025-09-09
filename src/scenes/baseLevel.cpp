@@ -4,6 +4,7 @@
 #include "player.hpp"
 #include "draw.hpp"
 #include "vec.hpp"
+#include "math.h"
 
 LevelScene::LevelScene(const Space::Border& gameBorder, const Space::Border& screenBorder, PlayerType playerType)
 	:Scene(gameBorder, screenBorder),
